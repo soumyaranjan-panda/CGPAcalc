@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-
 const GradeCalculation = () => {
   const [semesters, setSemesters] = useState([]);
   const [cgpa, setCgpa] = useState(0);
   const [percent, setPercent] = useState(0);
-
   const gradeToPoint = (grade) => {
     const gradeMap = {
       O: 10,
@@ -18,9 +16,7 @@ const GradeCalculation = () => {
       S: 0,
     };
     return gradeMap[grade] || 0;
-    
   };
-
   const calculateSGPA = (semester) => {
     let totalCredits = semester.reduce(
       (acc, subject) => acc + subject.credits,
@@ -32,7 +28,6 @@ const GradeCalculation = () => {
     );
     return (totalPoints / totalCredits).toFixed(2);
   };
-
   const calculateCGPA = (semesters) => {
     let totalCredits = 0;
     let totalPoints = 0;
@@ -50,14 +45,12 @@ const GradeCalculation = () => {
     });
     return (totalPoints / totalCredits).toFixed(2);
   };
-
   const handleInputChange = (e, semesterIndex, subjectIndex, field) => {
     const updatedSemesters = [...semesters];
     updatedSemesters[semesterIndex][subjectIndex][field] =
       field === "credits" ? parseFloat(e.target.value) : e.target.value;
     setSemesters(updatedSemesters);
   };
-
   const handleAddSemester = () => {
     const numSubjects = prompt(
       "Enter the number of subjects for this semester:"
@@ -67,33 +60,20 @@ const GradeCalculation = () => {
         credits: 0,
         grade: "O",
       }));
-      const updatedSemesters = [...semesters, semester];
-      setSemesters(updatedSemesters);
-
-      const knowSGPA = prompt(
-        "Do you know the SGPA for this semester? (yes or no):"
-      );
-      if (knowSGPA.toLowerCase() === "yes") {
-        const sgpa = prompt("Enter the SGPA for this semester:");
-        if (!isNaN(sgpa) && sgpa >= 0 && sgpa <= 10) {
-          semester.sgpa = sgpa;
-        }
-      }
+      setSemesters([...semesters, semester]);
     }
   };
-
   const handleMinimizeSemester = (semesterIndex) => {
+    handleCalculateSGPA(semesterIndex)
     const updatedSemesters = [...semesters];
     updatedSemesters[semesterIndex].minimized = true;
     setSemesters(updatedSemesters);
   };
-
   const handleMaximizeSemester = (semesterIndex) => {
     const updatedSemesters = [...semesters];
     updatedSemesters[semesterIndex].minimized = false;
     setSemesters(updatedSemesters);
   };
-
   const handleCalculateSGPA = (semesterIndex) => {
     const updatedSemesters = [...semesters];
     updatedSemesters[semesterIndex].sgpa = calculateSGPA(
@@ -101,15 +81,13 @@ const GradeCalculation = () => {
     );
     setSemesters(updatedSemesters);
   };
-
   const handleCalculateCGPA = () => {
     let a = calculateCGPA(semesters);
     setCgpa(a);
     setPercent((a - 0.5) * 10);
   };
-
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 ">
       <div className="flex justify-between flex-col gap-3">
         <h2 className="text-xl font-bold mb-4">GPA Calculation</h2>
         <div className="mb-4">
@@ -122,7 +100,7 @@ const GradeCalculation = () => {
         </div>
         <div className="bg-blue-50 mx-full p-2 rounded space-y-2">
           {semesters.map((semester, semesterIndex) => (
-            <div key={semesterIndex} className="bg-blue-100 p-0.5 rounded-sm">
+            <div key={semesterIndex} className=" bg-blue-100 p-0.5 rounded-sm">
               <div className="flex justify-between items-center mb-2">
                 <h3 className="text-lg font-bold">
                   Semester {semesterIndex + 1}
@@ -156,7 +134,8 @@ const GradeCalculation = () => {
                           step="0.1"
                           pattern="[0-9]+(\.[0-9]+)?"
                           className="block w-full border-gray-300 rounded-md shadow-sm px-2 py-1"
-                          value={subject.credits || 0}
+                          value={subject.credits || ""}
+                          value={subject.credits || "0"}
                           onChange={(e) =>
                             handleInputChange(
                               e,
@@ -226,14 +205,15 @@ const GradeCalculation = () => {
           >
             Calculate CGPA
           </button>
-          <div className="ml-2 flex flex-col m-2 text-md">
-            <span>CGPA: {cgpa}</span>
-            <span>Percentage: {percent}</span>
-          </div>
+          {
+            <div className="ml-2 flex flex-col m-2 text-md">
+              <span>CGPA: {cgpa}</span>
+              <span>Percentage: {percent}</span>
+            </div>
+          }
         </div>
       </div>
     </div>
   );
 };
-
 export default GradeCalculation;
