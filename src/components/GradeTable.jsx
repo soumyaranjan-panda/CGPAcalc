@@ -8,8 +8,8 @@ const GradeTable = () => {
     { grade: 'B', description: 'Good', percentage: '60 & above but less than 70', points: 7 },
     { grade: 'C', description: 'Fair', percentage: '50 & above but less than 60', points: 6 },
     { grade: 'D', description: 'Below Average', percentage: '37 & above but less than 50', points: 5 },
-    { grade: 'F', description: 'Failed', percentage: 'Below 37', points: 0 },
-    { grade: 'M', description: 'Malpractice', percentage: '-', points: 2 },
+    { grade: 'F', description: 'Failed', percentage: 'Below 37', points: 2 },
+    { grade: 'M', description: 'Malpractice', percentage: '-', points: 0 },
     { grade: 'S', description: 'Absent', percentage: '-', points: 0 },
   ];
 
