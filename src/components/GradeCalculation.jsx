@@ -18,6 +18,7 @@ const GradeCalculation = () => {
       S: 0,
     };
     return gradeMap[grade] || 0;
+    
   };
 
   const calculateSGPA = (semester) => {
