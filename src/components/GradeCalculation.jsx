@@ -145,7 +145,7 @@ const GradeCalculation = () => {
                           step="0.1"
                           pattern="[0-9]+(\.[0-9]+)?"
                           className="block w-full border-gray-300 rounded-md shadow-sm px-2 py-1"
-                          value={subject.credits || ""}
+                          value={subject.credits || "0"}
                           onChange={(e) =>
                             handleInputChange(
                               e,
